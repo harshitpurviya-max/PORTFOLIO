@@ -1,0 +1,51 @@
+.cosmic-background {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: paint;
+  background: var(--color-space-deep);
+}
+
+.cosmic-background__atmosphere {
+  position: absolute;
+  inset: -2%;
+  opacity: 0.2;
+  background:
+    linear-gradient(180deg, rgba(7, 10, 18, 0.32), rgba(7, 10, 18, 0.72)),
+    url("/assets/backgrounds/nebula-blue.webp") center / cover no-repeat;
+  animation: cosmic-atmosphere-drift 180s ease-in-out infinite alternate;
+}
+
+.cosmic-background__atmosphere::after {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 68% 28%, rgba(77, 117, 145, 0.12), transparent 48%),
+    linear-gradient(180deg, transparent 20%, var(--color-space-deep) 100%);
+  content: "";
+}
+
+@keyframes cosmic-atmosphere-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.02);
+  }
+
+  to {
+    transform: translate3d(-5px, 4px, 0) scale(1.04);
+  }
+}
+
+@media (max-width: 640px) {
+  .cosmic-background__atmosphere {
+    opacity: 0.14;
+    animation-duration: 240s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cosmic-background__atmosphere {
+    animation: none;
+  }
+}

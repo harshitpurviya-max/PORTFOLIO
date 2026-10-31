@@ -1,55 +1,64 @@
-// src/sections/Testimonials.jsx
 import { motion } from 'framer-motion'
-import SectionHeader   from '../components/SectionHeader.jsx'
-import TestimonialCard from '../components/TestimonialCard.jsx'
-import testimonials    from '../data/testimonials.js'
-
-const container = {
-  hidden: {},
-  show:   { transition: { staggerChildren: 0.13 } },
-}
-
-const card = {
-  hidden: { opacity: 0, y: 28 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
-}
+import { testimonials } from '../data/portfolioData.js'
+import './Testimonials.css'
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="bg-[#0c0e12] px-5 py-20 md:px-10 md:py-28">
-      <div className="mx-auto max-w-7xl">
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
+    <section
+      id="testimonials"
+      className="testimonials-section px-5 py-20 md:px-10 md:py-28"
+    >
+      <div className="testimonials-section__inner mx-auto max-w-7xl">
+        <motion.header
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="mb-12"
+          className="testimonials-section__header"
         >
-          <SectionHeader
-            badge="Endorsements"
-            title="Kind Words from People I've Built With"
-            description="Authentic feedback from teammates and clients across hackathon challenges and custom web deliveries."
-          />
-        </motion.div>
+          <p className="testimonials-section__eyebrow">
+            <span aria-hidden="true" />
+            CREW TRANSMISSIONS / 03
+          </p>
+          <div className="testimonials-section__heading">
+            <h2>In their own words.</h2>
+            <p>
+              Reflections from people who shared the work, the process, and the
+              projects along the way.
+            </p>
+          </div>
+        </motion.header>
 
-        {/* Testimonial grid */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-80px' }}
-          className="grid gap-5 md:grid-cols-3"
-        >
-          {testimonials.map((testimonial) => (
-            <motion.div key={testimonial.id} variants={card} className="h-full">
-              <TestimonialCard testimonial={testimonial} />
-            </motion.div>
+        <div className="testimonials-section__list">
+          {testimonials.map((testimonial, index) => (
+            <motion.article
+              key={testimonial.id}
+              initial={false}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-70px' }}
+              className={`testimonial-voice testimonial-voice--${index + 1}`}
+            >
+              <span className="testimonial-voice__index" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+
+              <div className="testimonial-voice__statement">
+                <span className="testimonial-voice__quote-mark" aria-hidden="true">
+                  “
+                </span>
+                <blockquote>{testimonial.quote}</blockquote>
+              </div>
+
+              <footer className="testimonial-voice__attribution">
+                <cite>{testimonial.name}</cite>
+                <span>{testimonial.relation}</span>
+                <span className="testimonial-voice__project">
+                  Project: {testimonial.project}
+                </span>
+              </footer>
+            </motion.article>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )
 }
-

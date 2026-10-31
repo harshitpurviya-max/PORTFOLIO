@@ -1,25 +1,51 @@
 @import "tailwindcss";
 
+/* ─── Shared Portfolio Tokens ───────────────────────────────────────── */
+:root {
+  color-scheme: dark;
+
+  --color-space-deep: #070A12;
+  --color-nebula-navy: #111C2C;
+  --color-cosmic-blue: #83B8DB;
+  --color-stellar-gold: #D8B47A;
+  --color-starlight: #E7EAF0;
+  --color-nebula-grey: #8491A5;
+
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-technical: "JetBrains Mono", "Fira Code", monospace;
+
+  --space-section-block: clamp(5rem, 9vw, 8rem);
+  --space-page-gutter: clamp(1.25rem, 5vw, 3rem);
+
+  --section-background: var(--color-space-deep);
+  --section-surface: var(--color-nebula-navy);
+
+  --motion-duration-entrance: 500ms;
+  --motion-duration-atmosphere: 160s;
+  --motion-transition: 300ms ease;
+}
+
 /* ─── Design Tokens ─────────────────────────────────────────────────── */
 @theme {
   /* Backgrounds */
-  --color-bg-base:    #0c0e12;
-  --color-surface:    #141820;
+  --color-bg-base:    #070A12;
+  --color-surface:    #111C2C;
 
   /* Borders */
-  --color-border:     #232936;
+  --color-border:     #263548;
 
   /* Accents */
-  --color-violet:     #8B5CF6;
-  --color-lime:       #CCFF00;
+  --color-violet:     #83B8DB;
+  --color-lime:       #D8B47A;
 
   /* Text */
-  --color-slate-400:  #94A3B8;
-  --color-slate-50:   #F8FAFC;
+  --color-slate-400:  #8491A5;
+  --color-slate-50:   #E7EAF0;
 
   /* Font families */
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-technical);
 }
 
 /* ─── Base Reset ─────────────────────────────────────────────────────── */
@@ -31,8 +57,8 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #0c0e12;
-  color: #F8FAFC;
+  background-color: var(--color-space-deep);
+  color: var(--color-starlight);
   /* Prevent horizontal overflow at root level */
   overflow-x: hidden;
   width: 100%;
@@ -41,6 +67,7 @@ html {
 body {
   min-height: 100dvh;
   font-family: var(--font-sans);
+  background-color: var(--color-space-deep);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Prevent mobile horizontal scroll */
@@ -50,18 +77,44 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
 #root {
   width: 100%;
   overflow-x: hidden;
 }
 
+.app-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background: var(--color-space-deep);
+}
+
+.app-content {
+  position: relative;
+  z-index: 1;
+}
+
+.app-shell main > section {
+  background-color: transparent;
+  scroll-margin-top: 5rem;
+}
+
 /* ─── Keyboard Accessibility — Focus Visible ─────────────────────────── */
 /*
-  Show a crisp violet ring only for keyboard navigation.
+  Show a crisp cosmic-blue ring only for keyboard navigation.
   :focus-visible fires only on keyboard focus, not mouse clicks.
 */
 :focus-visible {
-  outline: 2px solid #8B5CF6;
+  outline: 2px solid var(--color-cosmic-blue);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -74,7 +127,7 @@ body {
 /* Buttons and anchors get a slightly tighter radius for pill shapes */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid #8B5CF6;
+  outline: 2px solid var(--color-cosmic-blue);
   outline-offset: 3px;
   border-radius: 8px;
 }
@@ -90,18 +143,18 @@ button:focus-visible {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #232936;
+  background: var(--color-nebula-navy);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8B5CF6;
+  background: var(--color-cosmic-blue);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #232936 #0c0e12;
+  scrollbar-color: var(--color-nebula-navy) var(--color-space-deep);
 }
 
 /* ─── Image & Media Constraints ──────────────────────────────────────── */
@@ -110,4 +163,19 @@ video,
 svg {
   max-width: 100%;
   display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
