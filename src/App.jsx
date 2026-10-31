@@ -1,5 +1,6 @@
 // src/App.jsx — Full portfolio page assembly
 import { MotionConfig } from 'framer-motion'
+import BackgroundMusic from './components/BackgroundMusic.jsx'
 import Navbar        from './components/Navbar.jsx'
 import Footer        from './components/Footer.jsx'
 import CosmicBackground from './components/cosmic/CosmicBackground.jsx'
@@ -19,6 +20,7 @@ export default function App() {
       <div className="app-content">
         <MotionConfig reducedMotion="user">
           <Navbar />
+          <BackgroundMusic />
           <main>
             <Hero />
             <SelectedWork />

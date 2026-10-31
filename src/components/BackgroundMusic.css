@@ -1,0 +1,85 @@
+.background-music-control {
+  position: fixed;
+  z-index: 40;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  display: inline-flex;
+  width: 2.9rem;
+  height: 2.9rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 1px solid rgb(216 180 122 / 42%);
+  border-radius: 999px;
+  background: rgb(7 10 18 / 88%);
+  color: var(--color-stellar-gold);
+  box-shadow: 0 8px 26px rgb(0 0 0 / 28%);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.background-music-control:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-stellar-gold);
+  background: rgb(17 28 44 / 94%);
+  color: var(--color-starlight);
+}
+
+.background-music-control:focus-visible {
+  outline: 2px solid var(--color-cosmic-blue);
+  outline-offset: 3px;
+}
+
+.background-music-control:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.background-music-control__pulse {
+  position: absolute;
+  right: -0.15rem;
+  bottom: 0.2rem;
+  display: flex;
+  height: 0.7rem;
+  align-items: center;
+  gap: 2px;
+  padding: 0 3px;
+  border: 1px solid rgb(7 10 18 / 92%);
+  border-radius: 999px;
+  background: var(--color-stellar-gold);
+}
+
+.background-music-control__pulse span {
+  width: 2px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-space-deep);
+  animation: music-wave 850ms ease-in-out infinite alternate;
+}
+
+.background-music-control__pulse span:nth-child(2) {
+  animation-delay: 180ms;
+}
+
+.background-music-control__pulse span:nth-child(3) {
+  animation-delay: 360ms;
+}
+
+@keyframes music-wave {
+  to {
+    height: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background-music-control,
+  .background-music-control__pulse span {
+    animation: none;
+    transition: none;
+  }
+}
